@@ -13,10 +13,6 @@ beforeEach(() => {
 });
 
 describe('GET api/categories', () => {
-    test("200: returns an array of category objects", () => {
-        return request(app)
-            .get("/api/categories").expect(200);
-    });
     test("returns an array of categories with properties of slug and description", () => {
         return request(app)
             .get("/api/categories")
@@ -34,5 +30,4 @@ describe('GET api/categories', () => {
                 })
             });
     });
-    // test("404: ")
 })
