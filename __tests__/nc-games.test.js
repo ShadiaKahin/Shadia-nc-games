@@ -38,7 +38,6 @@ describe('GET api/reviews/:review_id', () => {
         .get("/api/reviews/1")
             .expect(200)
             .then((res) => {
-                console.log(res.body.review)
                 expect(res.body.review).toEqual(
                     expect.objectContaining({
                         review_id: 1,
@@ -68,6 +67,27 @@ describe('GET api/reviews/:review_id', () => {
             .expect(400)
             .then((res) => {
                 expect(res.body.message).toBe('bad request - invalid id');
+            });
+    })
+})
+
+describe('GET /api/users', () => {
+    test('returns an array of objects with the properties of username, name and avatar_url', () => {
+        return request(app)
+            .get("/api/users")
+            .expect(200)
+            .then((res) => {
+                expect(res.body.users).toBeInstanceOf(Array);
+                expect(res.body.users).toHaveLength(4)
+                res.body.users.forEach((user) => {
+                    expect(user).toEqual(
+                        expect.objectContaining({
+                            username: expect.any(String),
+                            name: expect.any(String),
+                            avatar_url: expect.any(String)
+                        })
+                    )
+                })
             });
     })
 })
