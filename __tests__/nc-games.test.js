@@ -71,15 +71,15 @@ describe('GET api/reviews/:review_id', () => {
     })
 })
 
-describe.only('GET /api/users', () => {
+describe('GET /api/users', () => {
     test('returns an array of objects with the properties of username, name and avatar_url', () => {
         return request(app)
             .get("/api/users")
             .expect(200)
             .then((res) => {
-                expect(res.body.user).toBeInstanceOf(Array);
-                expect(res.body.user).toHaveLength(4)
-                res.body.user.forEach((user) => {
+                expect(res.body.users).toBeInstanceOf(Array);
+                expect(res.body.users).toHaveLength(4)
+                res.body.users.forEach((user) => {
                     expect(user).toEqual(
                         expect.objectContaining({
                             username: expect.any(String),
