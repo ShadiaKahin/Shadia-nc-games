@@ -91,3 +91,19 @@ describe('GET /api/users', () => {
             });
     })
 })
+
+TEST -
+describe('PATCH /api/reviews/:review_id', () => {
+    test('', () => {
+        const review_id = 2;
+        
+        return request(app)
+            .patch(`/api/reviews/${review_id}`)
+            .send(200)
+            .then((res) => {
+                expect(typeof res.body).toBe("object");
+                expect(res.body).toHaveProperty("votes");
+    
+            })
+        })
+})
