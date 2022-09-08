@@ -1,8 +1,12 @@
 const db = require('../db/connection')
 
-exports.updatedReview = () => {
-    return db.query('SELECT * FROM reviews')
+exports.updatedReview = (reviewId, newVote) => {
+    return db.query(`UPDATE reviews SET votes = votes + ${newVote}
+WHERE review_id = ${reviewId}
+RETURNING review_id, votes, title, category, designer, owner, review_body, review_img_url, created_at;`
+        )
         .then((data) => {
-        console.log(data, 'in model')
-    })
+            return data.rows[0]
+        })
+ 
 }

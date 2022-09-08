@@ -92,18 +92,18 @@ describe('GET /api/users', () => {
     })
 })
 
-TEST -
 describe('PATCH /api/reviews/:review_id', () => {
-    test('', () => {
+    test('returns the updated review which has incremented vote', () => {
         const review_id = 2;
-        
+        const incVote = { inc_votes: 10 }
+
         return request(app)
             .patch(`/api/reviews/${review_id}`)
-            .send(200)
+            .send(incVote)
+            .expect(200)
             .then((res) => {
-                expect(typeof res.body).toBe("object");
-                expect(res.body).toHaveProperty("votes");
-    
+                expect(res.body.review).toHaveProperty("votes", 15);
+                expect(res.body.review).toHaveProperty("review_id", 2)
             })
         })
 })
