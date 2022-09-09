@@ -5,7 +5,6 @@ exports.updatedReview = (reviewId, newVote) => {
 WHERE review_id = $2 RETURNING *;`, [newVote, reviewId] 
         )
         .then((data) => {
-            console.log(data.rows)
             if (data.rows.length === 0) {
               return Promise.reject({ status: 404, message: 'not found'})
               }
