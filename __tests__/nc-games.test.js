@@ -91,3 +91,88 @@ describe('GET /api/users', () => {
             });
     })
 })
+
+describe('PATCH /api/reviews/:review_id', () => {
+    test('returns the updated review which has incremented vote', () => {
+        const review_id = 2;
+        const incVote = { inc_votes: 10 }
+
+        return request(app)
+            .patch(`/api/reviews/${review_id}`)
+            .send(incVote)
+            .expect(200)
+            .then((res) => {
+                expect(res.body.review).toHaveProperty("votes", 15);
+                expect(res.body.review).toHaveProperty("review_id", 2)
+            })
+    })
+
+test('400: the sent object is empty', () => {
+    const inputObj = {}
+
+    return request(app)
+        .patch(`/api/reviews/2`)
+        .send(inputObj)
+        .expect(400).then((res) => {
+            expect(res.body.message).toBe('bad request')
+        })
+})
+})
+
+test('404: review id not found', () => {
+    const incVote = { inc_votes: 10 }
+
+    return request(app)
+        .patch(`/api/reviews/345345345`)
+        .send(incVote)
+        .expect(404).then((res) => {
+            expect(res.body.message).toBe('not found')
+        })
+})
+
+
+test('400: id not an integer', () => {
+    
+    const incVote = { inc_votes: 10 }
+    const review_id = "two";
+
+    return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(incVote)
+        .expect(400).then((res) => {
+            expect(res.body.message).toBe('bad request')
+        })
+})
+
+
+test('400: inc_votes not an integer', () => {
+    
+    const incVote = { inc_votes: "ten" }
+    const review_id = 2;
+
+    return request(app)
+        .patch(`/api/reviews/${review_id}`)
+        .send(incVote)
+        .expect(400).then((res) => {
+            expect(res.body.message).toBe('bad request')
+        })
+})
+
+
+
+// string UpdateCmd = "update dx set chronic = @p1 where (trim(lower(cdesc)), trim(cicd9)) = (@p2);";
+
+
+
+
+
+// return db.query(`INSERT INTO treasures (treasure_name,
+//     colour, age, cost_at_auction, shop_id
+//     ) VALUES ($1, $2, $3, $4, $5);`,
+//     [newTreasure.treasure_name, newTreasure.colour, newTreasure.age, newTreasure.cost_at_auction, newTreasure.shop_id])
+//     .then(() => {
+//         return db.query(`SELECT * FROM treasures WHERE treasure_name = 'crown';`)
+//     })
+//     .catch((err) => {
+//        return Promise.reject({status: 400, msg: 'invalid treasure object'});
+// })
