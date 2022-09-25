@@ -15,15 +15,16 @@ app.get('/api/reviews/:review_id', getReview)
 app.get('/api/users', getUsers);
 
 app.use((err, req, res, next) => {
-    if (err.status) {
+  if (err.status) {
+      console.log("error", err)
       res.status(err.status).send({ message: err.message })
     }
-    else next(err);
+  else next(err);
 })
 
 
 app.use((err, req, res, next) => {
-    console.log(err);
+    console.log("500 error", err);
     res.status(500).send({ message: "server error" });
   });
 
