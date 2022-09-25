@@ -3,6 +3,7 @@ const express = require('express')
 const { getCategories } = require("./controllers/categories");
 const { getReview } = require("./controllers/review")
 const { getUsers } = require("./controllers/users")
+const { getComments } = require("./controllers/comments")
 
 const app = express()
 
@@ -13,6 +14,8 @@ app.get('/api/categories', getCategories);
 app.get('/api/reviews/:review_id', getReview)
 
 app.get('/api/users', getUsers);
+
+app.get('/api/reviews/:review_id/comments', getComments)
 
 app.use((err, req, res, next) => {
   if (err.status) {
