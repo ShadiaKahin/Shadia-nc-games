@@ -9,6 +9,7 @@ exports.selectComments = (id) => {
           `SELECT * FROM comments WHERE review_id = ${id}
         ;`)
             .then((data) => {
+                console.log('model', data)
             if (data.rows.length === 0) {
               return Promise.reject({ status: 404, message: 'not found'})
               }

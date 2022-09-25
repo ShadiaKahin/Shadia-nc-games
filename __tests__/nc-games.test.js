@@ -32,7 +32,7 @@ describe('GET api/categories', () => {
     });
 })
 
-describe.only('GET api/reviews/:review_id', () => {
+describe('GET api/reviews/:review_id', () => {
     test("returns a review object with properties", () => {
         return request(app) 
         .get("/api/reviews/2")
@@ -94,7 +94,7 @@ describe('GET /api/users', () => {
 })
 
 describe('GET /api/reviews/:review_id/comments', () => {
-    test.only('returns an array of comments associated with a review', () => {
+    test('returns an array of comments associated with a review', () => {
         return request(app)
             .get("/api/reviews/2/comments")
             .expect(200)
@@ -129,4 +129,23 @@ describe('GET /api/reviews/:review_id/comments', () => {
                ])
             })
     });
+
+    test("returns an error if the item doesn't have any comments", () => {
+        return request(app)
+            .get("/api/reviews/1/comments")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.message).toBe('not found');
+            })
+    });
+
+    test("returns an error if the review id doesn't exist", () => {
+        return request(app)
+            .get("/api/reviews/10923740235/comments")
+            .expect(404)
+            .then((res) => {
+              expect(res.body.message).toBe('not found');
+            })
+    });
+
 })
