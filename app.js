@@ -4,6 +4,9 @@ const { getCategories } = require("./controllers/categories");
 const { getReview } = require("./controllers/review")
 const { getUsers } = require("./controllers/users")
 const { getComments } = require("./controllers/comments")
+const cors = require('cors');
+
+app.use(cors());
 
 const app = express()
 
