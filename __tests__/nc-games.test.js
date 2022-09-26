@@ -32,7 +32,7 @@ describe('GET api/categories', () => {
     });
 })
 
-describe.only('GET api/reviews/:review_id', () => {
+describe('GET api/reviews/:review_id', () => {
     test("returns a review object with properties", () => {
         return request(app) 
         .get("/api/reviews/2")
@@ -94,7 +94,7 @@ describe('GET /api/users', () => {
 })
 
 describe('GET /api/reviews/:review_id/comments', () => {
-    test.only('returns an array of comments associated with a review', () => {
+    test('returns an array of comments associated with a review', () => {
         return request(app)
             .get("/api/reviews/2/comments")
             .expect(200)
@@ -129,4 +129,30 @@ describe('GET /api/reviews/:review_id/comments', () => {
                ])
             })
     });
+})
+
+describe('POST /api/reviews/:review_id/comment', () => {
+    test.only('creates a new comment and returns it', () => {
+        return request(app)
+            .post("/api/reviews/2/comment")
+            .send({
+                author: "Shadrack and the Mandem",
+                body: 'Best on the block!'
+              })
+            .expect(201)
+            .then((res) => {
+                console.log('testttt', res)
+                expect(typeof res.body).toBe('object');
+                // expect(res.body.users).toHaveLength(4)
+                // res.body.users.forEach((user) => {
+                //     expect(user).toEqual(
+                //         expect.objectContaining({
+                //             username: expect.any(String),
+                //             name: expect.any(String),
+                //             avatar_url: expect.any(String)
+                //         })
+                //     )
+                // })
+            });
+    })
 })
