@@ -18,3 +18,12 @@ exports.selectReview = (id) => {
             return data.rows[0];
         })
 }
+
+exports.selectReviews = () => {
+  return db.query(
+    `SELECT * FROM reviews;`
+  )
+    .then((data) => {
+      return data.rows;
+  })
+}

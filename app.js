@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { getCategories } = require("./controllers/categories");
-const { getReview } = require("./controllers/review")
+const { getReview, getReviews } = require("./controllers/review")
 const { getUsers } = require("./controllers/users")
 const { getComments } = require("./controllers/comments")
 const cors = require('cors');
@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/api/categories', getCategories);
+
+app.get('/api/reviews', getReviews);
 
 app.get('/api/reviews/:review_id', getReview)
 
