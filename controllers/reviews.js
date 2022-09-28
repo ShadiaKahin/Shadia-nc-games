@@ -1,13 +1,16 @@
 const { selectReviews } = require('../models/reviews')
 
 exports.getReviews = (req, res, next) => {
-    const category = req.params.category;
-    return selectReviews(category)
+    let review_id = req.query.review_id;
+    let category = req.query.category;
+    return selectReviews(review_id, category)
         .then((data) => {
-            console.log('in controller', data)
             res.status(200).send({ reviews: data })
         })
         .catch((err) => {
             next(err);
     })
 }
+
+
+
