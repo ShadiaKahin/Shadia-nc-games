@@ -21,6 +21,10 @@ exports.selectReviews = (review_id, category) => {
       queryStr += ` WHERE reviews.review_id = ${reviewId};`
     }
   
+    if (category) {
+      queryStr += ` WHERE reviews.category = ${category};`
+    }
+  
         return db.query(queryStr)
         .then((data) => {
             if (data.rows.length === 0) {
