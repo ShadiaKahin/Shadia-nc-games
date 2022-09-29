@@ -4,6 +4,8 @@ const { getCategories } = require("./controllers/categories");
 const { getReviews } = require("./controllers/reviews")
 const { getUsers } = require("./controllers/users")
 const { getComments } = require("./controllers/comments")
+const { patchReview } = require("./controllers/patch-review")
+
 const cors = require('cors');
 
 const app = express()
@@ -17,7 +19,10 @@ app.get('/api/reviews', getReviews);
 
 app.get('/api/users', getUsers);
 
-app.get('/api/reviews/:review_id/comments', getComments)
+app.get('/api/reviews/:review_id/comments', getComments);
+
+app.patch('/api/reviews/:review_id', patchReview)
+
 
 app.use((err, req, res, next) => {
   if (err.status) {
