@@ -341,3 +341,68 @@ describe('GET /api/reviews/:review_id/comments', () => {
 
 })
 
+describe('PATCH /api/reviews/:review_id', () => {
+  
+  test('returns the updated review which has incremented vote', () => {
+      const review_id = 2;
+      const incVote = { inc_votes: 10 }
+
+      return request(app)
+          .patch(`/api/reviews/${review_id}`)
+          .send(incVote)
+          .expect(200)
+          .then((res) => {
+              expect(res.body.review).toHaveProperty("votes", 15);
+              expect(res.body.review).toHaveProperty("review_id", 2)
+          })
+  })
+
+  // test('400: the sent object is empty', () => {
+  //   const review_id = 2;
+  //   const inputObj = {}
+
+  //   return request(app)
+  //     .patch(`/api/reviews/${review_id}`)
+  //     .send(inputObj)
+  //     .expect(400).then((res) => {
+  //         expect(res.body.message).toBe('bad request')
+  //     })
+  // })
+  
+  // test('404: review id not found', () => {
+  //   const incVote = { inc_votes: 10 }
+  
+  //   return request(app)
+  //       .patch(`/api/reviews/345345345`)
+  //       .send(incVote)
+  //       .expect(404).then((res) => {
+  //           expect(res.body.message).toBe('not found')
+  //       })
+  // })
+
+  // test('400: id not an integer', () => {
+  
+  //   const incVote = { inc_votes: 10 }
+  //   const review_id = "two";
+  
+  //   return request(app)
+  //       .patch(`/api/reviews/${review_id}`)
+  //       .send(incVote)
+  //       .expect(400).then((res) => {
+  //           expect(res.body.message).toBe('bad request')
+  //       })
+  // })
+
+  // test('400: inc_votes not an integer', () => {
+  
+  //   const incVote = { inc_votes: "ten" }
+  //   const review_id = 2;
+  
+  //   return request(app)
+  //       .patch(`/api/reviews/${review_id}`)
+  //       .send(incVote)
+  //       .expect(400).then((res) => {
+  //           expect(res.body.message).toBe('bad request')
+  //       })
+  // })
+})
